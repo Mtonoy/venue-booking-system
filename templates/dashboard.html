@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<div class="navbar">
+    Dashboard
+</div>
+
+<div class="container">
+
+    <div class="links">
+        <a href="/">New Booking</a>
+        <a href="/analytics">Analytics</a>
+    </div>
+
+    <table class="table">
+
+        <tr>
+            <th>ID</th>
+            <th>Event</th>
+            <th>Venue</th>
+            <th>Status</th>
+            <th>Conflict</th>
+            <th>Action</th>
+        </tr>
+
+        {% for booking in bookings %}
+        <tr>
+
+            <td>{{ booking.id }}</td>
+            <td>{{ booking.event_name }}</td>
+            <td>{{ booking.venue }}</td>
+
+            <td>
+                <span class="status {{ booking.status.lower() }}">
+                    {{ booking.status }}
+                </span>
+            </td>
+
+            <td>
+                {% if booking.conflict == 1 %}
+                    ⚠ Conflict
+                {% else %}
+                    No Conflict
+                {% endif %}
+            </td>
+
+            <td>
+                <a href="/approval/{{ booking.id }}">
+                    Open
+                </a>
+            </td>
+
+        </tr>
+        {% endfor %}
+
+    </table>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Venue Booking</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<div class="navbar">
+    Venue Booking System
+</div>
+
+<div class="container">
+
+    <div class="links">
+        <a href="/dashboard">Dashboard</a>
+        <a href="/analytics">Analytics</a>
+    </div>
+
+    <h2>Book Venue</h2>
+
+    <form action="/submit" method="POST">
+
+        <input type="text" name="event_name" placeholder="Event Name" required>
+
+        <select name="event_type" required>
+            <option value="">Select Event Type</option>
+            <option>Seminar</option>
+            <option>Workshop</option>
+            <option>Meeting</option>
+            <option>Conference</option>
+        </select>
+
+        <select name="venue" required>
+            <option value="">Select Venue</option>
+            <option>Hall 1</option>
+            <option>Hall 2</option>
+            <option>Room 1</option>
+            <option>Room 2</option>
+        </select>
+
+        <input type="datetime-local" name="start_datetime" required>
+
+        <input type="datetime-local" name="end_datetime" required>
+
+        <input type="text" name="organizer" placeholder="Organizer Name" required>
+
+        <input type="email" name="email" placeholder="Email" required>
+
+        <textarea class="full" name="requirements" placeholder="Special Requirements"></textarea>
+
+        <button class="full" type="submit">Submit Request</button>
+
+    </form>
+
+</div>
+
+</body>
+</html>

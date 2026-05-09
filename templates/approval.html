@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Request Approval</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+
+        .approval-wrapper{
+            width:90%;
+            max-width:1200px;
+            margin:40px auto;
+            background:white;
+            border-radius:20px;
+            overflow:hidden;
+            box-shadow:0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .approval-header{
+            background:linear-gradient(90deg,#4f46e5,#5b21b6);
+            color:white;
+            padding:25px 35px;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+        }
+
+        .approval-header h1{
+            font-size:28px;
+            font-weight:600;
+        }
+
+        .approval-content{
+            display:flex;
+            justify-content:space-between;
+            gap:40px;
+            padding:40px;
+        }
+
+        .left-section{
+            flex:1;
+        }
+
+        .right-section{
+            width:320px;
+        }
+
+        .details-title{
+            font-size:24px;
+            margin-bottom:30px;
+            color:#222;
+            font-weight:600;
+        }
+
+        .detail-row{
+            display:flex;
+            margin-bottom:18px;
+        }
+
+        .detail-label{
+            width:180px;
+            font-weight:600;
+            color:#444;
+        }
+
+        .detail-value{
+            color:#111;
+        }
+
+        .approve-btn{
+            width:100%;
+            background:#22c55e;
+            border:none;
+            color:white;
+            padding:16px;
+            border-radius:10px;
+            font-size:18px;
+            cursor:pointer;
+            margin-bottom:20px;
+            transition:0.3s;
+        }
+
+        .approve-btn:hover{
+            background:#16a34a;
+        }
+
+        .reject-btn{
+            width:100%;
+            background:#ef4444;
+            border:none;
+            color:white;
+            padding:16px;
+            border-radius:10px;
+            font-size:18px;
+            cursor:pointer;
+            transition:0.3s;
+        }
+
+        .reject-btn:hover{
+            background:#dc2626;
+        }
+
+        .comment-box{
+            margin-top:30px;
+        }
+
+        .comment-box textarea{
+            width:100%;
+            height:180px;
+            border:1px solid #ddd;
+            border-radius:10px;
+            padding:15px;
+            resize:none;
+            font-size:15px;
+        }
+
+        .conflict-box{
+            margin-top:35px;
+            background:#ffe4e6;
+            border-left:5px solid #ef4444;
+            padding:20px;
+            border-radius:10px;
+        }
+
+        .conflict-title{
+            color:#dc2626;
+            font-weight:bold;
+            margin-bottom:10px;
+            font-size:18px;
+        }
+
+        .back-btn{
+            display:inline-block;
+            margin-bottom:20px;
+            text-decoration:none;
+            background:#4f46e5;
+            color:white;
+            padding:12px 20px;
+            border-radius:10px;
+            font-weight:500;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="approval-wrapper">
+
+    <div class="approval-header">
+        <h1>Request Approval</h1>
+        <div>⋮</div>
+    </div>
+
+    <div class="approval-content">
+
+        <div class="left-section">
+
+            <a href="/dashboard" class="back-btn">
+                ← Back Dashboard
+            </a>
+
+            <div class="details-title">
+                Request Details
+            </div>
+
+            <div class="detail-row">
+                <div class="detail-label">Request ID</div>
+                <div class="detail-value">
+                    REQ{{ booking.id }}
+                </div>
+            </div>
+
+            <div class="detail-row">
+                <div class="detail-label">Event Name</div>
+                <div class="detail-value">
+                    {{ booking.event_name }}
+                </div>
+            </div>
+
+            <div class="detail-row">
+                <div class="detail-label">Venue</div>
+                <div class="detail-value">
+                    {{ booking.venue }}
+                </div>
+            </div>
+
+            <div class="detail-row">
+                <div class="detail-label">Date / Time</div>
+                <div class="detail-value">
+                    {{ booking.start_datetime }}
+                    <br>
+                    to
+                    <br>
+                    {{ booking.end_datetime }}
+                </div>
+            </div>
+
+            <div class="detail-row">
+                <div class="detail-label">Organizer</div>
+                <div class="detail-value">
+                    {{ booking.organizer }}
+                </div>
+            </div>
+
+            <div class="detail-row">
+                <div class="detail-label">Email</div>
+                <div class="detail-value">
+                    {{ booking.email }}
+                </div>
+            </div>
+
+            <div class="detail-row">
+                <div class="detail-label">Special Requirements</div>
+                <div class="detail-value">
+                    {{ booking.requirements }}
+                </div>
+            </div>
+
+            {% if booking.conflict == 1 %}
+
+            <div class="conflict-box">
+
+                <div class="conflict-title">
+                    ⚠ Conflict Detected
+                </div>
+
+                <div>
+                    The booking conflicts with another event.
+                </div>
+
+            </div>
+
+            {% endif %}
+
+        </div>
+
+        <div class="right-section">
+
+            <a href="/update_status/{{ booking.id }}/Approved">
+
+                <button class="approve-btn">
+                    ✓ Approve
+                </button>
+
+            </a>
+
+            <a href="/update_status/{{ booking.id }}/Rejected">
+
+                <button class="reject-btn">
+                    ✕ Reject
+                </button>
+
+            </a>
+
+            <div class="comment-box">
+
+                <textarea
+                    placeholder="Add your comments..."></textarea>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
